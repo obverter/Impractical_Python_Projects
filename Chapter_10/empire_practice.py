@@ -27,7 +27,7 @@ root.title("Milky Way galaxy")
 c = tk.Canvas(root, width=1000, height=800, bg='black')
 c.grid()
 c.configure(scrollregion=(-500, -400, 500, 400))
-    
+
 # actual Milky Way Dimensions (light-years)
 DISC_RADIUS = 50000
 
@@ -63,7 +63,7 @@ def spirals(b, r, rot_fac, fuz_fac, arm):
     for x, y in spiral_stars:
         if arm == 0 and int(x % 2) == 0:
             c.create_oval(x-2, y-2, x+2, y+2, fill='white', outline='')
-        elif arm == 0 and int(x % 2) != 0:
+        elif arm == 0:
             c.create_oval(x-1, y-1, x+1, y+1, fill='white', outline='')
         elif arm == 1:
             c.create_oval(x, y, x, y, fill='white', outline='')
@@ -74,7 +74,7 @@ def star_haze(scalar):
     disc_radius_scaled = galactic disc radius scaled to radio bubble diameter
     scalar = multiplier to vary number of stars posted
     """
-    for i in range(0, disc_radius_scaled * scalar):
+    for _ in range(disc_radius_scaled * scalar):
         x, y = polar_coordinates()
         c.create_text(x, y, fill='white', font=('Helvetica', '7'), text='.')
 
@@ -89,7 +89,7 @@ def model_expansion():
                   .format(increment))
     c.create_text(-475, -325, anchor='w', fill='red',
                   text='Velocity as fraction of Light = {:,}'.format(SPEED))
-    
+
     for years in range(increment, MAX_YEARS + 1, increment):
         time.sleep(0.5) # delay before posting new expansion circle
         traveled = SPEED * increment / UNIT
