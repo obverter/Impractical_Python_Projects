@@ -54,7 +54,7 @@ class Game(tk.Frame):
         # create widgets for changing door choice
         self.change_door = tk.StringVar()
         self.change_door.set(None)
-        
+
         instr_lbl = tk.Label(self.parent, text='Change doors?')
         instr_lbl.grid(row=2, column=3, columnspan=1, sticky='E')
 
@@ -73,7 +73,7 @@ class Game(tk.Frame):
         self.changed_wins_txt = tk.Text(self.parent, width=20,
                                         height=1, wrap=tk.WORD, bg=defaultbg,
                                         fg='black', borderwidth=0)
-        
+
         # place the widgets in the frame
         a.grid(row=1, column=4, sticky='W', padx=20)
         b.grid(row=1, column=4, sticky='N', padx=20)
@@ -103,7 +103,7 @@ class Game(tk.Frame):
         else:
             self.reveal = random.choice(door_list)
 
-        self.img_file = ('reveal_{}.png'.format(self.reveal))
+        self.img_file = f'reveal_{self.reveal}.png'
         self.update_image()
 
         # turn on and clear yes/no buttons
@@ -126,17 +126,17 @@ class Game(tk.Frame):
             door_list.remove(self.reveal)
             new_pick = door_list[0]
             if new_pick == self.winner:
-                self.img_file = 'money_{}.png'.format(new_pick)
+                self.img_file = f'money_{new_pick}.png'
                 self.pick_change_wins += 1
             else:
-                self.img_file = 'goat_{}.png'.format(new_pick)
+                self.img_file = f'goat_{new_pick}.png'
                 self.first_choice_wins += 1
         elif switch_doors == 'n':
             if self.choice == self.winner:
-                self.img_file = 'money_{}.png'.format(self.choice)
+                self.img_file = f'money_{self.choice}.png'
                 self.first_choice_wins += 1
             else:
-                self.img_file = 'goat_{}.png'.format(self.choice)
+                self.img_file = f'goat_{self.choice}.png'
                 self.pick_change_wins += 1
 
         # update door image
@@ -149,12 +149,12 @@ class Game(tk.Frame):
         self.changed_wins_txt.delete(1.0, 'end')
         self.changed_wins_txt.insert(1.0, 'Changed wins = {:d}'
                                      .format(self.pick_change_wins))
-        
+
         # turn off yes/no buttons and clear door choice buttons
         self.yes.config(state='disabled')
         self.no.config(state='disabled')
         self.door_choice.set(None)
-        
+
         # close doors 2 seconds after opening
         self.img_file = 'all_closed.png'
         self.parent.after(2000, self.update_image)
